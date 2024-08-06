@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import HighchartsChart from "./HighchartsChart";
-import "../css/chart.style.css"; // Import your CSS file
+import "../css/chart.style.css?url"; // Import your CSS file
 import { generateDateArray, generateHourArray, generatechartData, isMoreThanNDaysApart } from "~/utils";
 
 interface IEventMap {

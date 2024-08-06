@@ -1,7 +1,6 @@
 import { LinksFunction, LoaderFunctionArgs, json} from "@remix-run/node";
 import {
   Links,
-  LiveReload,
   Meta,
   Outlet,
   Scripts,
@@ -12,10 +11,10 @@ import styles from "./tailwind.css?url";
 import common from './css/common.css?url';
 import { authenticate } from "./shopify.server";
 import { IProfileShopUpdate } from "./backend/types/profileShop.type";
-import { ComponentType, lazy, Suspense } from "react";
+import { lazy, Suspense } from "react";
 import { getProfileShopOnCache } from "./backend/redis/profile.service";
 
-const CrispChat = lazy(()=> import('./utils/CrispChat.js').then(module => module as unknown as { default: ComponentType<any> }))
+const CrispChat = lazy(()=> import('./utils/CrispChat'))
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: styles },
@@ -24,7 +23,7 @@ export const links: LinksFunction = () => [
   // { rel: "preconnect", href: "https://destinations.shopifysvc.com" },
   // { rel: "preconnect", href: "https://monorail-edge.shopifysvc.com" },
   // { rel: "prefetch", href: "https://client.crisp.chat" },  
-  { rel: "preconnect", href: "https://cdn.shopify.com/"}, // co change
+  // { rel: "preconnect", href: "https://cdn.shopify.com/"}, // co change
   // { rel: "prefetch", href: "https://admin.shopify.com" },
 
 ];
@@ -74,7 +73,7 @@ function App() {
         <link rel="preconnect" href="https://cdn.shopify.com/" />
         <link
           rel="stylesheet"
-          href="https://cdn.shopify.com/static/fonts/inter/v4/styles.css"
+          href="https://cdn.shopify.com/static/fonts/inter/v4/styles.css?url"
         />
         <Meta />
         <Links />

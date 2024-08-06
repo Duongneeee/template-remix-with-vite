@@ -1,6 +1,6 @@
 import type { HeadersFunction } from "@remix-run/node";
 import { Link, Outlet, useRouteError, useRouteLoaderData } from "@remix-run/react";
-import polarisStyles from "@shopify/polaris/build/esm/styles.css";
+import polarisStyles from "@shopify/polaris/build/esm/styles.css?url";
 import { AppProvider } from "@shopify/shopify-app-remix/react";
 import { NavMenu } from "@shopify/app-bridge-react";
 import { boundary } from "@shopify/shopify-app-remix/server";

@@ -58,7 +58,7 @@ import {
   getProfileShopByShop,
   updateProfileShop,
 } from "~/backend/services/profileShop.service";
-import FacebookLoginComp from "~/components/common/FacebookLogin";
+import FacebookLoginComp from "~/components/common/FacebookLoginComp";
 import type { ISelectSource } from "~/backend/external_apis/facebook/facebook.types";
 import { getAccessTokenCastle, getBussinessSource } from "~/backend/external_apis/facebook/facebook.service";
 import {

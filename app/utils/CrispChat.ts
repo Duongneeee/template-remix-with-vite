@@ -1,11 +1,10 @@
 import { Crisp } from "crisp-sdk-web";
 import { useEffect } from "react"
+import md5 from 'md5'
 
 const CrispChat = (props:any) => {
 
     const {shop, emailShop, planShopify, shopName} = props
-
-    var md5 = require('md5');
 
     useEffect(()=>{
         Crisp.configure("c9c0e691-e7ae-4b3d-96c6-3f18db38ede8");

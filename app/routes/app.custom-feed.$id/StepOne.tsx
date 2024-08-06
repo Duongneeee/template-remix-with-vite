@@ -4,7 +4,7 @@ import { Avatar, Button, ButtonGroup, Card, Modal, ResourceItem, ResourceList, T
 import { useCallback, useEffect, useState } from "react"
 import { getBussinessSource } from "~/backend/external_apis/facebook/facebook.service"
 import EmptyTableContent from "~/components/common/EmptyTableContent"
-import FacebookLoginComp from "~/components/common/FacebookLogin"
+// import FacebookLoginComp from "~/components/common/FacebookLogin"
 
 interface IStepOneProps {
     formData?:any,
@@ -139,13 +139,13 @@ const StepOne = (props:IStepOneProps) => {
                     :
                     <EmptyTableContent image="https://d2qfs3b62dkzxt.cloudfront.net/images/productFeed.webp">
                         <div className="flex justify-center mt-3">
-                            <FacebookLoginComp
+                            {/* <FacebookLoginComp
                             shop={formData?.shopName || ''}
                             setTokenFb={setTokenFb}
                             setUserNameFb={setUserNameFb}
                             setUserAvatarFb={setUserAvatarFb}
                             labelButton="Login with Facebook"
-                            />
+                            /> */}
                         </div>
                     </EmptyTableContent>
             }

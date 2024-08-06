@@ -1,7 +1,7 @@
 import { Icon, Popover, Button, TextField, OptionList } from "@shopify/polaris";
 import { SearchIcon } from '@shopify/polaris-icons';
 import { useCallback, useEffect, useState } from "react";
-import "../../css/common.css";
+import "../../css/common.css?url";
 
 export interface IOption {
   value: string;

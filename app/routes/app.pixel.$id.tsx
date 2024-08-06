@@ -58,7 +58,7 @@ import {
   getProfileShopByShop,
   updateProfileShop,
 } from "~/backend/services/profileShop.service";
-import FacebookLoginComp from "~/components/common/FacebookLogin";
+import FacebookLoginComp from "~/components/common/FacebookLoginComp";
 import type { ISelectSource } from "~/backend/external_apis/facebook/facebook.types";
 import { getAccessTokenCastle, getBussinessSource } from "~/backend/external_apis/facebook/facebook.service";
 import {
@@ -76,8 +76,8 @@ export interface ErrorItem {
 }
 
 export async function loader({ request, params }: any) {
-  const { admin } = await authenticate.admin(request);
-  const { shop, accessToken } = admin.rest.session;
+  const { session } = await authenticate.admin(request);
+    const {shop, accessToken} = session;
 
   let collectionOptions: IOption[] = await getCollections(shop, accessToken);
   let productOptions: IOption[] = transformOption(await getAllProducts(shop, accessToken));

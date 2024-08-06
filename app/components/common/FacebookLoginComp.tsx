@@ -1,24 +1,17 @@
-import { useSubmit, useLoaderData } from '@remix-run/react';
+import { useSubmit } from '@remix-run/react';
 import FacebookLogin from 'react-facebook-login';
-import { json } from "@remix-run/node";
 
-interface IFBProps{
+export interface IFBProps{
   setTokenFb: (value: string) => void;
   setUserNameFb:  (value: string) => void;
   setUserAvatarFb:  (value: string) => void;
   labelButton: string;
   shop: string
 }
-export async function loader() {
-  return json({
-    FACEBOOK_APP_ID: process.env.FACEBOOK_APP_ID,
-  });
-}
 
-function FacebookLoginComp(props: IFBProps) {
-  const data = useLoaderData<typeof loader>();
-  
+const FacebookLoginComp = (props: IFBProps) => {
   const {setTokenFb, setUserNameFb, setUserAvatarFb, labelButton} = props;
+  
   const submit = useSubmit();
   const responseFacebook = (response: any) => {
     setTokenFb(response.accessToken)
@@ -34,9 +27,8 @@ function FacebookLoginComp(props: IFBProps) {
     submit(data, { method: "post" });
   };
   return (
-    <div>
       <FacebookLogin
-        appId={data.FACEBOOK_APP_ID || '337123195876934'}
+        appId={'337123195876934'}
         autoLoad={false}
         fields="name,picture"
         callback={responseFacebook}
@@ -46,8 +38,7 @@ function FacebookLoginComp(props: IFBProps) {
         size='small'
         textButton={labelButton}
       />
-    </div>
-  );
+  )
 }
 
 export default FacebookLoginComp;

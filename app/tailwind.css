@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+highcharts-credits {
+    display : none !important;
+}
+
+.highcharts-credits {
+    display : none !important;
+}

@@ -1,0 +1,41 @@
+/* width */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Track */
+/* ::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey; 
+  border-radius: 10px;
+}
+  */
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: grey; 
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #b30000; 
+}
+.pixel_btn .Polaris-Button{
+  padding: 8px;
+}
+select{
+  padding-left: 10px !important;
+}
+
+.dropdown  li>ul                 { transform: translatex(100%) scale(0) }
+.dropdown  li:hover>ul           { transform: translatex(101%) scale(1) }
+.dropdown  .tranform-svg         { transform: rotate(-90deg) }
+/* .dropdown  li:hover > button svg { transform: rotate(-270deg) } */
+.dropdown  .group:hover .group-hover\:scale-100 { transform: scale(1) }
+.dropdown  .group:hover .group-hover\:-rotate-180 { transform: rotate(180deg) }
+.dropdown  .scale-0 { transform: scale(0) }
+.dropdown  .min-w-32 { min-width: 8rem }
+
+.custom-button-facebook {
+  background-color:#3B5998;
+  color: white;
+}

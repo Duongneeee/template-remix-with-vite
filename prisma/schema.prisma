@@ -1,16 +1,10 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
 
-// Note that some adapters may set a maximum length for the String type by default, please ensure your strings are long
-// enough when changing adapters.
-// See https://www.prisma.io/docs/orm/reference/prisma-schema-reference#string for more information
 datasource db {
-  provider = "sqlite"
-  url      = "file:dev.sqlite"
+  provider = "mysql"
+  url      = env("DATABASE_URL")
 }
 
 model Session {
@@ -22,11 +16,272 @@ model Session {
   expires       DateTime?
   accessToken   String
   userId        BigInt?
+  accountOwner  Boolean   @default(false)
+  collaborator  Boolean?  @default(false)
+  email         String?
+  emailVerified Boolean?  @default(false)
   firstName     String?
   lastName      String?
-  email         String?
-  accountOwner  Boolean   @default(false)
   locale        String?
-  collaborator  Boolean?  @default(false)
-  emailVerified Boolean?  @default(false)
+}
+
+model EventsData {
+  id             Int      @default(autoincrement())
+  shop           String
+  pixelId        String
+  eventName      String
+  eventId        String   @db.Text
+  eventSourceUrl String   @db.Text
+  data           String?  @db.Text
+  eventTime      String
+  syncFlag       Int      @default(0)
+  utmAd          String?  @db.Text
+  utmAdSet       String?  @db.Text
+  utmCampaign    String?  @db.Text
+  utmMedium      String?  @db.Text
+  utmSource      String?  @db.Text
+  createdAt      DateTime @default(now())
+  platform       String   @default("")
+
+  @@id([id, createdAt])
+  @@index([shop], map: "idx_shop")
+}
+
+model EventsDataTiktok {
+  id             Int      @default(autoincrement())
+  shop           String
+  pixelId        String
+  eventName      String
+  eventId        String   @db.Text
+  eventSourceUrl String   @db.Text
+  data           String?  @db.Text
+  eventTime      String
+  syncFlag       Int      @default(0)
+  utmAd          String?  @db.Text
+  utmAdSet       String?  @db.Text
+  utmCampaign    String?  @db.Text
+  utmMedium      String?  @db.Text
+  utmSource      String?  @db.Text
+  createdAt      DateTime @default(now())
+
+  @@id([id, createdAt])
+  @@index([shop], map: "idx_shop")
+}
+
+model CApi_MetaPixel {
+  id            Int      @id @default(autoincrement())
+  pixelId       String
+  name          String
+  adAccount     String?
+  lstCollects   String?
+  lstProducts   String?
+  lstTags       String?
+  lstEvents     String   @db.Text
+  shop          String
+  targetArea    String
+  status        Boolean  @default(true)
+  isActiveCApi  Boolean  @default(false)
+  testEventCode String?
+  accessTokenFB String?  @db.Text
+  mode          String?
+  platform      String   @default("")
+  createdAt     DateTime @default(now())
+}
+
+model Parameters {
+  id        Int      @id @default(autoincrement())
+  shop      String
+  type      String
+  value     String   @db.Text
+  createdAt DateTime @default(now())
+}
+
+model ProfileShop {
+  id                    Int       @id @default(autoincrement())
+  shop                  String    @unique
+  shopId                String    @default("")
+  themeId               String    @default("")
+  domain                String
+  email                 String
+  country               String
+  planId                Int?
+  installApp            Boolean   @default(false)
+  installDate           DateTime  @default(now())
+  expiresDate           DateTime?
+  facebookName          String
+  facebookAvatar        String    @db.Text
+  accessTokenFb         String    @db.Text
+  isConfirmPixel        Boolean   @default(false)
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+  storeFrontAccessToken String?   @db.Text
+  isBlackList           Boolean   @default(false)
+  planShopify           String    @default("")
+  shopName              String    @default("")
+  timezone              String    @default("")
+}
+
+model AudienceConfig {
+  id                  Int      @id @default(autoincrement())
+  audienceFbId        String?
+  shop                String   @unique
+  audienceName        String
+  adAccount           String?
+  source              String?
+  description         String?  @db.Text
+  conditions          String?
+  rule                String   @db.Text
+  numberDay           Int?
+  isLookaLikeAudience Boolean  @default(false)
+  audienceSize        Int      @default(0)
+  audienceBase        String?
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+}
+
+model ProductFeedConfig {
+  id              Int      @id @default(autoincrement())
+  productFeedIdFb String?
+  shop            String
+  name            String
+  adAccount       String?
+  catalog         String?
+  description     String?  @db.Text
+  conditions      String?
+  rule            String   @db.Text
+  file            String
+  schedule        String
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  status          Int      @default(0)
+  logError        String?  @db.Text
+}
+
+model Reviews {
+  id        Int      @id @default(autoincrement())
+  shop      String
+  star      Int?
+  review    String?  @db.Text
+  isClose   Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model UTMConfig {
+  id        Int      @id @default(autoincrement())
+  shop      String
+  name      String
+  utmSource String
+  utmString String   @db.Text
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Plan {
+  id          Int      @id @default(autoincrement())
+  name        String
+  price       String
+  description String   @db.Text
+  rule        String   @db.Text
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model LogActivityUser {
+  id        Int      @id @default(autoincrement())
+  shop      String
+  url       String
+  message   String
+  createdAt DateTime @default(now())
+}
+
+model Banners {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String   @db.Text
+  url         String
+  size        String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model News {
+  id        Int      @id @default(autoincrement())
+  title     String
+  summary   String
+  content   String   @db.Text
+  link      String
+  status    Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model AppConfig {
+  id          Int      @id @default(autoincrement())
+  name        String
+  status      Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  description String?  @db.Text
+}
+
+model ProfileAppConfig {
+  id          Int      @id @default(autoincrement())
+  shop        String
+  value       String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  appConfigId Int
+}
+
+model ReportEvent {
+  id               Int      @id @default(autoincrement())
+  shop             String
+  pageView         Int
+  viewContent      Int
+  addToCart        Int
+  initiateCheckout Int
+  purchase         Int
+  search           Int
+  collectionView   Int
+  cartView         Int
+  addPaymentInfo   Int
+  day              DateTime @db.Date
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  currency         String   @default("")
+  pixelId          String   @default("")
+  revenue          Float    @default(0)
+}
+
+model FaceBookCategoryLevel {
+  id        Int      @id @default(autoincrement())
+  fpcLevel1 String
+  fpcLevel2 String?
+  fpcLevel3 String?
+  fpcLevel4 String?
+  fpcLevel5 String?
+  fpcLevel6 String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Feature {
+  id          Int      @id @default(autoincrement())
+  shop        String
+  title       String
+  description String   @db.Text
+  voteNumber  Int
+  status      Int
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Vote {
+  id          Int      @id @default(autoincrement())
+  idFeature   Int
+  shop        String
+  description String?  @db.Text
+  status      Int
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }

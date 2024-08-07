@@ -71,6 +71,7 @@ export async function loader({ request, params }: any) {
       facebookName: profileShop && profileShop.facebookName,
       facebookAvatar: profileShop && profileShop.facebookAvatar,
       accessTokenFb: profileShop && profileShop.accessTokenFb,
+      FACEBOOK_APP_ID:process.env.FACEBOOK_APP_ID
     });
   }
   // const productFeedData = await getProductFeedConfigById(Number(params.id));
@@ -261,6 +262,7 @@ const CustomProductFeed = () => {
             stateLoginFB = {stateLoginFB}
             setStateLoginFB = {setStateLoginFB}
             tokenFb= {tokenFb}
+            FACEBOOK_APP_ID={formData.FACEBOOK_APP_ID}
             />
           ||
           standStep === 2 && 

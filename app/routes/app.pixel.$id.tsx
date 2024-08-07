@@ -75,6 +75,8 @@ export interface ErrorItem {
   message?: string;
 }
 
+export const handle = { hydrate: true };
+
 export async function loader({ request, params }: any) {
   const { session } = await authenticate.admin(request);
     const {shop, accessToken} = session;
@@ -106,7 +108,8 @@ export async function loader({ request, params }: any) {
       facebookName: shopInfo && shopInfo.facebookName,
       facebookAvatar: shopInfo && shopInfo.facebookAvatar,
       accessTokenFb: shopInfo && shopInfo.accessTokenFb,
-      isDisabledWithAccount
+      isDisabledWithAccount,
+      FACEBOOK_APP_ID:process.env.FACEBOOK_APP_ID
     });
   }
 
@@ -122,7 +125,8 @@ export async function loader({ request, params }: any) {
     facebookAvatar: shopInfo && shopInfo.facebookAvatar,
     accessTokenFb: shopInfo && shopInfo.accessTokenFb,
     mode,
-    isDisabledWithAccount
+    isDisabledWithAccount,
+    FACEBOOK_APP_ID:process.env.FACEBOOK_APP_ID
   });
 }
 
@@ -757,6 +761,7 @@ export default function PixelForm() {
                           setUserNameFb={setUserNameFb}
                           setUserAvatarFb={setUserAvatarFb}
                           labelButton="Login with Facebook"
+                          FACEBOOK_APP_ID={formData.FACEBOOK_APP_ID}
                         />
                       </div>}
                     <div className="w-1/2">

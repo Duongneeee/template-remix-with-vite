@@ -5,7 +5,6 @@ import {
   Outlet,
   Scripts,
   useLoaderData,
-  useMatches,
 } from "@remix-run/react";
 import styles from "./tailwind.css?url";
 import common from './css/common.css?url';
@@ -59,12 +58,6 @@ function App() {
   
   const { shop, shopName, emailShop, planShopify } = useLoaderData<typeof loader>();
 
-  const matches = useMatches();
-
-  const includeScripts = matches.some(
-    (match:any) => match.handle?.hydrate
-  );
-
   return (
     <html>
       <head>
@@ -84,7 +77,7 @@ function App() {
           <CrispChat shop={shop} planShopify={planShopify} shopName={shopName} emailShop={emailShop}/>
         </Suspense>
         {/* <ScrollRestoration /> */}
-        {includeScripts ? <Scripts /> : null}
+        <Scripts/>
       </body>
     </html>
   );

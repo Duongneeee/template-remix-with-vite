@@ -8,7 +8,7 @@ import { useEffect } from "react";
 import logLCP from "~/utils/WebVitals";
 export const links = () => [{ rel: "stylesheet", href: polarisStyles }];
 
-export const handle = { hydrate: true };
+// export const handle = { hydrate: true };
 
 export default function App() {
 const dataRoot:any = useRouteLoaderData("root");

@@ -1,5 +1,7 @@
 import { useSubmit } from '@remix-run/react';
-import FacebookLogin from 'react-facebook-login';
+import { lazy, Suspense } from 'react';
+// import FacebookLogin from 'react-facebook-login';
+const FacebookLogin = lazy(() => import('react-facebook-login'));
 
 export interface IFBProps{
   setTokenFb: (value: string) => void;
@@ -7,10 +9,11 @@ export interface IFBProps{
   setUserAvatarFb:  (value: string) => void;
   labelButton: string;
   shop: string
+  FACEBOOK_APP_ID: string
 }
 
 const FacebookLoginComp = (props: IFBProps) => {
-  const {setTokenFb, setUserNameFb, setUserAvatarFb, labelButton} = props;
+  const {setTokenFb, setUserNameFb, setUserAvatarFb, labelButton, FACEBOOK_APP_ID} = props;
   
   const submit = useSubmit();
   const responseFacebook = (response: any) => {
@@ -26,9 +29,12 @@ const FacebookLoginComp = (props: IFBProps) => {
     // console.log(data);
     submit(data, { method: "post" });
   };
+  console.log('FACEBOOK_APP_ID',FACEBOOK_APP_ID)
   return (
+    <>
+    <Suspense>
       <FacebookLogin
-        appId={'337123195876934'}
+        appId={FACEBOOK_APP_ID || ""}
         autoLoad={false}
         fields="name,picture"
         callback={responseFacebook}
@@ -38,6 +44,8 @@ const FacebookLoginComp = (props: IFBProps) => {
         size='small'
         textButton={labelButton}
       />
+    </Suspense>
+    </>
   )
 }
 
